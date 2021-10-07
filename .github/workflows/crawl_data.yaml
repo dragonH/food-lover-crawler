@@ -31,7 +31,7 @@ jobs:
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
           git add datas/
-          git commit -m "Data crawled at \`$(date +'%Y-%m-%dT%H:%M:%S')\`"
+          git commit -m "Data crawled at \`$(env.current_time)\`"
           git push --set-upstream origin data-processing-branch
       # - name: pull-request
       #   uses: repo-sync/pull-request@v2
