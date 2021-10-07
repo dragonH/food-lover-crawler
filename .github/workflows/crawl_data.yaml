@@ -25,8 +25,8 @@ jobs:
           python index.py
       - name: Git Add Result
         run: |
-          git add datas/
-          git commit -m "Data crawled at \`{{$(date +'%Y-%m-%dT%H:%M:%S')}}\`"
           git config user.email "27856297+dependabot-preview[bot]@users.noreply.github.com"
           git config user.name "27856297+dependabot-preview[bot]"
+          git add datas/
+          git commit -m "Data crawled at \`{{$(date +'%Y-%m-%dT%H:%M:%S')}}\`"
           git push
