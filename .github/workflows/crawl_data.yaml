@@ -30,12 +30,12 @@ jobs:
           git add datas/
           git commit -m "Data crawled at \`$(date +'%Y-%m-%dT%H:%M:%S')\`"
           git push --set-upstream origin data-processing-branch
-      - name: pull-request
-        uses: repo-sync/pull-request@v2
-        with:
-          source_branch: data-processing-branch
-          destination_branch: "main"
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+      # - name: pull-request
+      #   uses: repo-sync/pull-request@v2
+      #   with:
+      #     source_branch: data-processing-branch
+      #     destination_branch: "main"
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
       - name: Approve Pull Request
         uses: tgymnich/fork-sync@v1.3
         with:
