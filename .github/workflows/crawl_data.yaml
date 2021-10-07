@@ -33,5 +33,6 @@ jobs:
       - name: pull-request
         uses: repo-sync/pull-request@v2
         with:
+          source_branch: data-processing-branch
           destination_branch: "main"
           github_token: ${{ secrets.GITHUB_TOKEN }}
