@@ -11,6 +11,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Set Current Time
+        run: |
+          echo "current_time=$(date +'%Y-%m-%dT%H:%M:%S')" >> $GITHUB_ENV
       - name: Create new Branch
         run: git checkout -B data-processing-branch
       - name: Setup python
@@ -43,5 +46,5 @@ jobs:
           head: data-processing-branch
           base: main
           merge_method: merge
-          pr_title: Merge with data-process-branch ${{date +'%Y-%m-%d'}}
+          pr_title: Merge with data-process-branch ${{ env.current_time }}
           auto_approve: true
