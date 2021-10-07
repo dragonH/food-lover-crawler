@@ -16,6 +16,8 @@ jobs:
         with:
           python-version: 3.8
       - name: Install Libraries
-        uses: pip install -r requirements.txt
+        run: |
+          pip install -r requirements.txt
       - name: Execute Script
-        uses: python index.py
+        run: |
+          python index.py
