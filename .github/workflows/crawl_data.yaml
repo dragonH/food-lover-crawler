@@ -29,4 +29,4 @@ jobs:
           git config user.name "27856297+dependabot-preview[bot]"
           git add datas/
           git commit -m "Data crawled at \`{{$(date +'%Y-%m-%dT%H:%M:%S')}}\`"
-          git push
+          git push --set-upstream origin data-processing-branch
