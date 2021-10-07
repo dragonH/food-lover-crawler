@@ -9,8 +9,6 @@ jobs:
   crawl:
     runs-on: ubuntu-latest
     steps:
-      - name: Set current date as env variable
-        run: echo "NOW::$(date +'%Y-%m-%dT%H:%M:%S')" >> $GITHUB_ENV
       - name: Checkout
         uses: actions/checkout@v2
         with:
@@ -28,5 +26,5 @@ jobs:
       - name: Git Add Result
         run: |
           git add datas/
-          git commit -m "Data crawled at \`{{$NOW}}\`"
+          git commit -m "Data crawled at \`{{$(date +'%Y-%m-%dT%H:%M:%S')}}\`"
           git push
