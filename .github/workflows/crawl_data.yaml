@@ -41,8 +41,8 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           personal_token: ${{ secrets.GH_PERSONAL_TOKEN }}
-          head: main
-          base: data-processing-branch
+          head: data-processing-branch
+          base: main
           merge_method: merge
           pr_title: Merge with data-process-branch
           auto_approve: true
