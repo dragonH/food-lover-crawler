@@ -9,8 +9,12 @@ jobs:
   crawl:
     runs-on: ubuntu-latest
     steps:
+      - name: Set current date as env variable
+        run: echo "NOW::$(date +'%Y-%m-%dT%H:%M:%S')" >> $GITHUB_ENV
       - name: Checkout
         uses: actions/checkout@v2
+        with:
+          ref: data-processing-branch
       - name: Setup python
         uses: actions/setup-python@v2
         with:
@@ -21,3 +25,8 @@ jobs:
       - name: Execute Script
         run: |
           python index.py
+      - name: Git Add Result
+        run: |
+          git add datas/
+          git commit -m "Data crawled at \`{{$NOW}}\`"
+          git push
