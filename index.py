@@ -7,10 +7,19 @@ import pandas as pd
 import logging
 import time
 from typing import List
+import os
+from datetime import datetime
 
 logging.basicConfig(level = logging.INFO)
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
+
+def get_current_time():
+    """
+        This function is to get current time
+    """
+    current_time = datetime.now()
+    return current_time
 
 def defined_variables():
     """
@@ -59,25 +68,49 @@ def get_data_from_url(
             _retry_times = _retry_times
         )
 
+def create_partition_folder(
+    _current_time: datetime
+):
+    """
+        This function is to create partition folder
+    """
+    try:
+        logger.info('Start to create partiton folder...')
+        # path = os.path.join('./datas', str(_current_time.year), str(_current_time.month), str(_current_time.day))
+        path = f'./datas/{str(_current_time.year)}/{str(_current_time.month)}/{str(_current_time.day)}'
+        os.makedirs(path)
+        logger.info('Finish creating partiton folder')
+        return path
+    except FileExistsError:
+        logger.info('Partiton folder exists. Skip...')
+        return path
+
 def write_data_as_csv(
-    _all_data: List[dict]
+    _all_data: List[dict],
+    _current_time: datetime,
+    _partition_path: str
 ):
     """
         This function is to write data as csv
     """
     logger.info('Start to write data as csv...')
+    current_time_string = _current_time.strftime('%Y%m%d%H%M%S')
     df = pd.DataFrame(_all_data).drop(columns = ['index']).reset_index()
-    df.to_csv('./data.csv', index = False)
-    logger.info('Finish writing data as csv')
+    df.to_csv(f'{_partition_path}/{current_time_string}.csv', index = False, sep = '|')
+    logger.info(f'Finish writing data as csv. File name {_partition_path}/{current_time_string}.csv')
 
 def main():
     """
         This is main function
     """
     try:
+        current_time = get_current_time()
         logger.info('Start to crawl data...')
         category_object, zone_object = defined_variables()
         all_data = []
+        partition_path = create_partition_folder(
+            _current_time = current_time
+        )
         for category in category_object:
             for zone in zone_object.keys():
                 for city in zone_object[zone]:
@@ -95,7 +128,9 @@ def main():
                     )
                     all_data += data
         write_data_as_csv(
-            _all_data = all_data
+            _all_data = all_data,
+            _current_time = current_time,
+            _partition_path = partition_path
         )
         logger.info('Finish crawling data')
     except:
