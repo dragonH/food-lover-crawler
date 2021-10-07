@@ -43,5 +43,5 @@ jobs:
           head: data-processing-branch
           base: main
           merge_method: merge
-          pr_title: Merge with data-process-branch
+          pr_title: Merge with data-process-branch `{{$(date +'%Y-%m-%dT%H:%M:%S')}}`
           auto_approve: true
