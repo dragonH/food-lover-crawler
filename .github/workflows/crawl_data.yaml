@@ -38,12 +38,13 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
       - name: Approve Pull Request
         uses: tgymnich/fork-sync@v1.3
-        personal_token: ${{ secrets.GH_PERSONAL_TOKEN }}
-        head: main
-        base: data-processing-branch
-        merge_method: merge
-        pr_title: Merge with data-process-branch
-        auto_approve: true
+        with:
+          personal_token: ${{ secrets.GH_PERSONAL_TOKEN }}
+          head: main
+          base: data-processing-branch
+          merge_method: merge
+          pr_title: Merge with data-process-branch
+          auto_approve: true
       - name: Delete PR Branch
         uses: dawidd6/action-delete-branch@v3
         with:
