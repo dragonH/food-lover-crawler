@@ -36,3 +36,14 @@ jobs:
           source_branch: data-processing-branch
           destination_branch: "main"
           github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Approve Pull Request
+        uses: juliangruber/approve-pull-request-action@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          number: 1
+      - name: Delete PR Branch
+        uses: dawidd6/action-delete-branch@v3
+        with:
+          github_token: ${{github.token}}
+          branches: data-processing-branch
+          prefix: data
