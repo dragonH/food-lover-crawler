@@ -43,5 +43,5 @@ jobs:
           head: data-processing-branch
           base: main
           merge_method: merge
-          pr_title: Merge with data-process-branch {{steps.date.outputs.time}}
+          pr_title: Merge with data-process-branch ${{steps.date.outputs.time}}
           auto_approve: true
